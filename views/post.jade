@@ -39,7 +39,7 @@ block main
         class='textarea-content',
         contenteditable='true',
         v-class='focused: focused',
-        v-on='input: xss, input: sync')
+        v-on='input: sync')
       input(type='hidden', name='content', v-model='content')
       input(type='submit', value='发表', class='btn')
 
