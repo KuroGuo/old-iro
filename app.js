@@ -30,6 +30,8 @@ if (process.env.DELAY) {
   });
 }
 
+app.use(compression());
+
 app.use('/static', express.static(path.join(__dirname, 'static')));
 
 app.use(bodyParser.json());
