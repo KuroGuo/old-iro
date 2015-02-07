@@ -1,4 +1,4 @@
-define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict';
+define(['app', 'vue', 'superagent', 'xss'], function (app, Vue, request, xss) { 'use strict';
   var articleView = new Vue({
     el: article,
     data: function () {
@@ -137,6 +137,9 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
       content: ''
     },
     methods: {
+      xss: function (e) {
+        e.target.innerHTML = xss(e.target.innerHTML);
+      },
       sync: function (e) {
         this.content = e.target.innerHTML;
       },

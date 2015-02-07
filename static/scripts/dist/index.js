@@ -1,13 +1,1 @@
-define(['./app', 'vue'], function (app, Vue, CodeMirror) { 'use strict';
-  var newPostView = new Vue({
-    el: '#new_post_form_wrapper',
-    data: {
-      content: ''
-    },
-    methods: {
-      sync: function (e) {
-        this.content = e.target.innerHTML;
-      }
-    }
-  });
-});
+define(["./app","vue","xss"],function(n,t,e){"use strict";new t({el:"#new_post_form_wrapper",data:{content:""},methods:{xss:function(n){n.target.innerHTML=e(n.target.innerHTML)},sync:function(n){this.content=n.target.innerHTML}}})});
