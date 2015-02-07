@@ -1,1 +1,1 @@
-define(["./app","vue"],function(n,t){"use strict";new t({el:"#new_post_form_wrapper",data:{content:""},methods:{sync:function(n){this.content=n.target.innerHTML}}})});
+define(["./app","vue"],function(t,e){"use strict";new e({el:"#post_list",computed:{lastReadId:{get:function(){return parseFloat(window.sessionStorage.lastReadId)},set:function(t){window.sessionStorage.lastReadId=t}}}}),new e({el:"#new_post_form_wrapper",data:{content:""},methods:{sync:function(t){this.content=t.target.innerHTML}}})});

@@ -3,8 +3,10 @@ extends ./_layout.jade
 block main
   #post_list.card
     each post in posts
-      .post
-        a(href='/p/' + post._id, target='_self', class='title')= post.title
+      .post(v-class='last-read: lastReadId==='+post._id)
+        a(href='/p/'+post._id, target='_self', class='title',
+          v-on='click: lastReadId='+post._id)
+          span.text= post.title
   #new_post_form_wrapper.card.editor
     h2 发布新内容
     form(action='/p/create', method='post', target='_self')

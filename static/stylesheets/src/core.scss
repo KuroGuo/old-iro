@@ -228,6 +228,9 @@ $width: 50rem;
       white-space: nowrap;
       display: block;
     }
+    &.last-read .title > .text{
+      outline: .1rem dashed;
+    }
   }
 }
 
