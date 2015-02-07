@@ -43,8 +43,7 @@ exports.find = function (options, callback) {
 
 exports.findHot = function (callback) {
   exports.find({
-    sort: { likes: -1 },
-    limit: 30
+    sort: { likes: -1 }
   }, callback);
 };
 
