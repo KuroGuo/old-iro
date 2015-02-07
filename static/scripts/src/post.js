@@ -13,9 +13,10 @@ define(['app', 'vue', 'superagent', 'xss'], function (app, Vue, request, xss) { 
       like: function () {
         var view = this;
         request.post('/p/like', { id: view.id }, function (err, res) {
-          if (err) {
+          if (err || res.status !== 200) {
             view.likes--;
-            throw err;
+            if (err)
+              throw err;
           }
         });
 
@@ -24,9 +25,10 @@ define(['app', 'vue', 'superagent', 'xss'], function (app, Vue, request, xss) { 
       unlike: function () {
         var view = this;
         request.post('/p/unlike', { id: view.id }, function (err, res) {
-          if (err) {
+          if (err || res.status !== 200) {
             this.unlikes--;
-            throw err;
+            if (err)
+              throw err;
           }
         });
 
