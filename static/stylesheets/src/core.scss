@@ -23,7 +23,7 @@ img {
 
 input, textarea, button, [contenteditable=true] {
   outline: none;
-  font-size: inherit;
+  font: inherit;
   color: inherit;
   &::-moz-focus-inner {
     border: none;
