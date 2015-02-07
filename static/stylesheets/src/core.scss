@@ -14,7 +14,8 @@ body {
 
 a {
   text-decoration: none;
-  color: #258fb8; 
+  color: #258fb8;
+  outline: none;
 }
 img {
   vertical-align: middle;
@@ -24,6 +25,12 @@ input, textarea, button, [contenteditable=true] {
   outline: none;
   font-size: inherit;
   color: inherit;
+  &::-moz-focus-inner {
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .textbox, .textarea {
