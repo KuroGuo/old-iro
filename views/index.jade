@@ -1,0 +1,21 @@
+extends ./_layout.jade
+
+block main
+  #post_list.card
+    each post in posts
+      .post
+        a(href='/p/' + post._id, target='_self', class='title')= post.title
+  #new_post_form_wrapper.card.editor
+    h2 发布新内容
+    form(action='/p/create', method='post', target='_self')
+      input(type='text', name='title', placeholder='标题', class='textbox')
+      .textarea.content(
+        contenteditable='true',
+        v-class='focused: focused',
+        v-on='input: sync')
+      input(type='hidden', name='content', v-model='content')
+      input(type='submit', value='发布', class='btn')
+
+block scripts
+  script.
+    require(['./index']);

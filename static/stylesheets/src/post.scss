@@ -1,0 +1,124 @@
+@import "compass/css3";
+@import "common.scss";
+
+.comment-content {
+  line-height: 1.2em;
+
+  p {
+    margin: 1.2rem 0;
+  }
+
+  img {
+    max-width: 100% !important;
+    max-height: 10em !important;
+  }
+}
+
+#panel {
+  margin-top: 1rem;
+  text-align: right;
+
+  .link-btn {
+    margin-left: .7rem;
+  }
+
+  .btn-like {
+    color: #0b2;
+  }
+
+  .btn-unlike {
+    color: #f44;
+  }
+}
+
+#comments {
+  margin-top: 1rem;
+  overflow: hidden;
+
+  .title {
+    font-size: 1.6rem;
+    margin: 1rem;
+  }
+
+  .comments {
+    border-bottom: .1rem solid #eee;
+
+    .comment {
+      position: relative;
+      padding: 1rem;
+      border-top: .1rem solid #eee;
+
+      .id {
+        position: absolute;
+        right: .5rem;
+        top: .5rem;
+        font-size: .9rem;
+        background-color: #eee;
+        border-radius: .3rem;
+        padding: 0 .25rem;
+        line-height: 1.2em;
+        color: #ccc;
+      }
+    }
+  }
+
+  .pager {
+    margin: 1rem;
+    text-align: right;
+
+    .btn-page {
+      font-size: .9rem;
+      display: inline-block;
+      line-height: 2em;
+      height: 2em;
+      @include box-sizing(border-box);
+      padding: 0 .3em;
+      text-align: center;
+      border: .1rem solid #ddd;
+      color: #777;
+      cursor: pointer;
+      @include user-select(none);
+      @include transition(all .1s);
+
+      &:hover, &:active {
+        background-color: #eee;
+      }
+
+      &:active {
+        @include box-shadow(inset 0 .15rem .5rem #aaa);
+      }
+
+      &.current {
+        color: #0b2;
+      }
+    }
+
+    .simple, .full {
+      @include animation(fade-in .2s);
+    }
+
+    .simple {
+      .btn-page {
+         border-right: none;
+         min-width: 2.3em;
+
+         &:first-child {
+           border-top-left-radius: .3rem;
+           border-bottom-left-radius: .3rem;
+         }
+         &:last-child {
+           border-right: .1rem solid #ddd;
+           border-top-right-radius: .3rem;
+           border-bottom-right-radius: .3rem;
+         }
+       }
+    }
+
+    .full{
+      .btn-page {
+        min-width: 2em;
+        margin: .1rem 0 0 .1rem;
+      }
+    }
+  }
+}

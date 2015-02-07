@@ -1,0 +1,24 @@
+{
+  "name": "iro",
+  "version": "0.0.1",
+  "authors": [
+    "KuroGuo <413298956@qq.com>"
+  ],
+  "description": "colorful",
+  "keywords": [
+    "iro"
+  ],
+  "license": "MIT",
+  "homepage": "http://iro.im/",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "vue": "~0.11.5",
+    "superagent": "~0.21.0"
+  }
+}

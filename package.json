@@ -1,0 +1,46 @@
+{
+  "name": "iro",
+  "version": "0.0.1",
+  "description": "colorful",
+  "main": "app.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kuroguo/iro"
+  },
+  "keywords": [
+    "iro"
+  ],
+  "author": "Kuro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kuroguo/iro/issues"
+  },
+  "homepage": "https://github.com/kuroguo/iro",
+  "dependencies": {
+    "async": "^0.9.0",
+    "body-parser": "^1.11.0",
+    "compression": "^1.4.0",
+    "connect-mongo": "^0.7.0",
+    "express": "^4.11.2",
+    "express-session": "^1.10.2",
+    "highlight.js": "^8.4.0",
+    "jade": "^1.9.1",
+    "marked": "^0.3.3",
+    "mongoose": "^3.8.22",
+    "multer": "^0.1.7",
+    "xss": "^0.1.20"
+  },
+  "devDependencies": {
+    "gulp": "^3.8.10",
+    "gulp-compass": "^2.0.3",
+    "gulp-minify-css": "^0.4.4",
+    "gulp-uglify": "^1.1.0",
+    "istanbul": "^0.3.5",
+    "mocha": "^2.1.0",
+    "should": "^4.6.3",
+    "supertest": "^0.15.0"
+  }
+}
