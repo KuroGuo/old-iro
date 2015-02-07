@@ -1,14 +1,12 @@
 define(['./app', 'vue'], function (app, Vue) { 'use strict';
   var postListView = new Vue({
     el: '#post_list',
-    computed: {
-      lastReadId: {
-        get: function () {
-          return parseFloat(window.sessionStorage.lastReadId);
-        },
-        set: function (val) {
-          window.sessionStorage.lastReadId = val;
-        }
+    data: {
+      lastReadId: parseFloat(window.sessionStorage.lastReadId)
+    },
+    methods: {
+      lastRead: function (id) {
+        window.sessionStorage.lastReadId = this.lastReadId = id;
       }
     }
   });
