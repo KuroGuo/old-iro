@@ -31,9 +31,20 @@
   }
 }
 
-#comments {
+#comments_wrapper {
   margin-top: 1rem;
   overflow: hidden;
+
+  .editor {
+    padding-top: 0;
+    .textarea {
+      min-height: 6em;
+    }
+    .btn {
+      height: 1.9em;
+      font-size: .9rem;
+    }
+  }
 
   .title {
     font-size: 1.6rem;

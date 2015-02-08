@@ -2,8 +2,8 @@
 
 var router = require('express').Router();
 
-var home = require('./controllers/home');
-var post = require('./controllers/post');
+var home = require('./controllers/http/home');
+var post = require('./controllers/http/post');
 
 router.get('/', home.index);
 router.get('/about', home.about);

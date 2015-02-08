@@ -8,8 +8,11 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var mongoose = require('mongoose');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+var socketioRouter = require('./socketio_router');
 var MongoStore = require('connect-mongo')(session);
-var webRouter = require('./web_router');
+var httpRouter = require('./http_router');
 var path = require('path');
 var errorhandler = require('./middlewares/errorhandler');
 
@@ -18,6 +21,8 @@ mongoose.connection.on('error', function (err) {
 });
 
 mongoose.connect(config.db);
+
+io.use(socketioRouter);
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -45,7 +50,7 @@ app.use(session({
   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
-app.use(webRouter);
+app.use(httpRouter);
 
 app.use('/static', function (req, res) {
   res.status(404).end();
@@ -59,7 +64,7 @@ if (!process.env.TEST) {
 
 app.use(errorhandler);
 
-app.listen(config.port, function () {
+http.listen(config.port, function () {
   console.log('Listenning port ' + config.port);
 });
 

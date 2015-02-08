@@ -1,6 +1,6 @@
 'use strict';
 
-var post = require('../services/post');
+var post = require('../../services/post');
 
 exports.index = function (req, res, next) {
   post.findHot(function (err, posts) {

@@ -1,6 +1,6 @@
 'use strict';
 
-var post = require('../services/post');
+var post = require('../../services/post');
 
 exports.create = function (req, res, next) {
   var title = req.body.title;
@@ -61,14 +61,14 @@ exports.unlike = function (req, res, next) {
 };
 
 exports.comment = function (req, res, next) {
-  var id = req.body.id;
+  var postId = req.body.postId;
   var content = req.body.content;
 
-  if (!id || !content) {
+  if (!postId || !content) {
     return res.status(400).send('哥，不能为空啊');
   }
 
-  post.comment(id, { content: content }, function (err) {
+  post.comment(postId, { content: content }, function (err) {
     if (err)
       return next(err);
 
@@ -79,8 +79,13 @@ exports.comment = function (req, res, next) {
 exports.comments = function (req, res, next) {
   var postId = req.params.postId;
   var page = req.params.page;
+  var pagesize = req.query.pagesize;
 
-  post.findComments(postId, page, function (err, comments) {
+  post.findComments({
+    postId: postId,
+    page: page,
+    pagesize: pagesize
+  }, function (err, comments) {
     if (err)
       return next(err);
 
@@ -90,8 +95,12 @@ exports.comments = function (req, res, next) {
 
 exports.commentsInfo = function (req, res, next) {
   var postId = req.params.postId;
+  var pagesize = req.query.pagesize;
 
-  post.getCommentsInfo(postId, function (err, info) {
+  post.getCommentsInfo({
+    postId: postId,
+    pagesize: pagesize
+  }, function (err, info) {
     if (err)
       return next(err);
 

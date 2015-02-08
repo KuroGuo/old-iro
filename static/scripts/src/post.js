@@ -1,4 +1,6 @@
-define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict';
+define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, io) { 'use strict';
+  var socket = io();
+
   var articleView = new Vue({
     el: article,
     data: function () {
@@ -42,20 +44,63 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
     data: {
       comments: [],
       commentsInfo: {},
+      pagesize: 15,
       currentPage: 0,
-      pagerMode: 'simple'
+      joined: false,
+      pagerMode: 'simple',
+      socketioHandlers: {
+        comment: {
+          sendEnd: function (data) {
+            var err = data.err;
+            var tempId = data.body.tempId;
+            var comment = data.body.comment;
+
+            var view = this;
+
+            var i;
+            for (i = 0; i < view.comments.length; i++) {
+              if (view.comments[i].tempId === tempId)
+                break;
+            }
+
+            if (err) {
+              comment = view.comments[0];
+              comment.err = err;
+              view.comments.$set(i, comment);
+              throw err;
+            }
+
+            var textarea = formCommentView.$el.querySelector('.textarea-content');
+            textarea.innerHTML = formCommentView.content = '';
+            view.comments.$set(i, comment);
+          },
+          joinend: function (data) {
+            this.joined = true;
+          },
+          receive: function (data) {
+            var comment = data.body.comment;
+            this.insertComment(comment);
+          }
+        }
+      }
     },
     computed: {
       simplePageButtons: function () {
         var pageButtons = [];
 
-        var firstPage = Math.max(this.currentPage - 2, 1);
-        var lastPage = firstPage + 4;
+        var firstPage = this.currentPage - 2;
+        var lastPage = this.currentPage + 2;
+
+        if (this.currentPage <= 3) {
+          firstPage = 1;
+        } else if (this.currentPage >= this.commentsInfo.pages - 2) {
+          lastPage = this.commentsInfo.pages;
+        }
 
         if (firstPage > 1)
           pageButtons.push({ text: '首', value: 1 });
 
-        for (var i = firstPage; i <= lastPage; i++) {
+        for (var i = firstPage; i <= firstPage + 4; i++) {
           if (i < 1)
             continue;
           else if (i > this.commentsInfo.pages)
@@ -64,7 +109,7 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
           pageButtons.push({ text: i, value: i });
         }
 
-        if (lastPage < this.commentsInfo.pages)
+        if (firstPage + 4 < this.commentsInfo.pages)
           pageButtons.push({ text: '尾', value: this.commentsInfo.pages });
 
         return pageButtons;
@@ -82,10 +127,20 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
     events: {
       'hook:created': function () {
         var view = this;
+
         view.loadCommentsInfo(function () {
           if (view.commentsInfo.pages > 0) {
             view.loadComments();
           }
+        });
+
+        socket.on('comment', function (data) {
+          view.socketioHandlers.comment[data.method].call(view, data);
+        });
+
+        socket.emit('comment', {
+          method: 'join',
+          body: { postId: articleView.id }
         });
       }
     },
@@ -93,7 +148,9 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
       loadCommentsInfo: function (callback) {
         var view = this;
 
-        request.get('/p/comments/' + articleView.id, function (err, res) {
+        request.get('/p/comments/' + articleView.id, {
+          pagesize: view.pagesize
+        }, function (err, res) {
           if (err)
             throw err;
 
@@ -108,7 +165,9 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
 
         page = page || 1;
 
-        request.get('/p/comments/' + articleView.id + '/' + page, function (err, res) {
+        request.get('/p/comments/' + articleView.id + '/' + page, {
+          pagesize: view.pagesize
+        }, function (err, res) {
           if (err)
             throw err;
 
@@ -119,6 +178,14 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
             callback();
         });
       },
+      insertComment: function (comment) {
+        this.comments.unshift(comment);
+        if (this.comments.length > this.pagesize) {
+          this.comments.pop();
+          this.commentsInfo.count++;
+          this.commentsInfo.pages = Math.ceil(this.commentsInfo.count / this.pagesize);
+        }
+      },
       gotoPage: function (page, callback) {
         var view = this;
 
@@ -128,7 +195,7 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
         }
 
         view.loadComments(page, function () {
-          window.scrollBy(0, view.$el.getBoundingClientRect().top);
+          window.scrollBy(0, view.$el.parentNode.getBoundingClientRect().top);
 
           if (typeof callback === 'function')
             callback();
@@ -147,10 +214,22 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
   var formCommentView = new Vue({
     el: '#form_comment_wrapper',
     data: {
-      content: '',
-      sending: false
+      postId: 0,
+      content: ''
+    },
+    computed: {
+      currentPage: function () {
+        return commentsView.currentPage;
+      },
+      joined: function () {
+        return commentsView.joined;
+      }
     },
     methods: {
+      check: function (e) {
+        if (e.keyCode === 13 && !e.target.innerHTML)
+          e.preventDefault();
+      },
       sync: function (e) {
         this.content = e.target.innerHTML;
       },
@@ -158,32 +237,30 @@ define(['app', 'vue', 'superagent'], function (app, Vue, request) { 'use strict'
         var view = this;
         var form = e.target;
 
-        var textarea = this.$el.querySelector('.textarea-content')
+        var textarea = view.$el.querySelector('.textarea-content');
 
-        var comment = { content: textarea.innerHTML };
+        var comment = {
+          tempId: new Date().getTime() + Math.random(),
+          content: textarea.innerHTML
+        };
 
         if (!comment.content) {
           e.preventDefault();
           return;
         }
 
-        request.post(form.action, { id: view.id, content: view.content }, function (err, res) {
-          if (err || res.status !== 200) {
-            view.sending = false;
-            if (err)
-              throw err;
-            return;
+        socket.emit('comment', {
+          method: 'send',
+          body: {
+            postId: view.postId,
+            content: view.content,
+            tempId: comment.tempId
           }
-
-          commentsView.gotoPage(function () {
-            view.sending = false;
-            textarea.innerHTML = view.content = '';
-          });
         });
 
         e.preventDefault();
 
-        view.sending = true;
+        commentsView.insertComment(comment);
       }
     }
   });

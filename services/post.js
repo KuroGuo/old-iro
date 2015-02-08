@@ -4,7 +4,7 @@ var xss = require('xss');
 var Post = require('../db/post');
 var counter = require('./counter');
 
-exports.pagesize = 15;
+exports.commentPagesize = 15;
 
 exports.create = function (post, callback) {
   var title = post.title;
@@ -112,23 +112,35 @@ exports.comment = function (postId, comment, callback) {
       if (!affects)
         return callback.call(this, new Error('affects 0'));
 
-      callback.call(this);
+      callback.call(this, null, comment);
     });
   });
 };
 
 exports.findCommentsSortByLike = function (postId, page, callback) {
-  findComments(postId, page, { 'comments.likes': -1 }, callback);
+  findComments({
+    postId: postId,
+    page: page,
+    sort: { 'comments.likes': -1 }
+  }, callback);
 };
 
-exports.findComments = function (postId, page, callback) {
-  findComments(postId, page, { 'comments._id': -1 }, callback);
+exports.findComments = function (options, callback) {
+  var postId = options.postId;
+  var page = options.page;
+  var pagesize = parseFloat(options.pagesize) || exports.commentPagesize;
+
+  findComments({
+    postId: postId,
+    page: page,
+    sort: { 'comments._id': -1 },
+    pagesize: pagesize
+  }, callback);
 };
 
-exports.getCommentsInfo = function (postId, callback) {
-  var pagesize = exports.pagesize;
-
-  postId = parseFloat(postId);
+exports.getCommentsInfo = function (options, callback) {
+  var postId = parseFloat(options.postId);
+  var pagesize = parseFloat(options.pagesize) || exports.commentPagesize;
 
   Post
     .aggregate()
@@ -158,8 +170,11 @@ exports.getCommentsInfo = function (postId, callback) {
     });
 };
 
-function findComments(postId, page, sort, callback) {
-  var pagesize = exports.pagesize;
+function findComments(options, callback) {
+  var postId = options.postId;
+  var page = options.page;
+  var sort = options.sort;
+  var pagesize = options.pagesize || exports.commentPagesize;
 
   postId = parseFloat(postId);
 
