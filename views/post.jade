@@ -14,23 +14,27 @@ block main
       a.link-btn.btn-unlike(v-on='click: unlike') 不喜欢(
         span.unlike(v-html='unlikes')
         | )
-  #comments.card(v-show='comments.length', style='display: none;')
+  #comments.card(v-show='1', style='display: none;')
     h2.title 评论
-    .comments
-      .comment(v-repeat='comment: comments')
-        span.id(v-html='"#" + comment._id', v-show='comment._id')
-        .comment-content(v-html='comment.content')
-    .pager
-      .simple(v-show='pagerMode === "simple"')
-        span.btn-page(v-repeat='simplePageButtons', v-html='text',
-          v-on='click: gotoPage(value)',
-          v-class='current: currentPage === value')
-        span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
-      .full(v-show='pagerMode === "full"')
-        span.btn-page(v-repeat='fullPageButtons', v-html='text',
-          v-on='click: gotoPage(value), click: togglePagerMode',
-          v-class='current: currentPage === value')
-        span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
+    div.message(v-if='!comments.length')
+      span(v-if='commentsInfo.count !== 0') 加载中...
+      span(v-if='commentsInfo.count === 0') 目前尚未有评论
+    div(v-show='comments.length', style='display: none;')
+      .comments
+        .comment(v-repeat='comment: comments')
+          span.id(v-html='"#" + comment._id', v-show='comment._id')
+          .comment-content(v-html='comment.content')
+      .pager
+        .simple(v-show='pagerMode === "simple"')
+          span.btn-page(v-repeat='simplePageButtons', v-html='text',
+            v-on='click: gotoPage(value)',
+            v-class='current: currentPage === value')
+          span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
+        .full(v-show='pagerMode === "full"')
+          span.btn-page(v-repeat='fullPageButtons', v-html='text',
+            v-on='click: gotoPage(value), click: togglePagerMode',
+            v-class='current: currentPage === value')
+          span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
   #form_comment_wrapper.card.editor(v-show='1', style='display: none;')
     h2 发表评论
     form#form_comment(action='/p/comment', method='post', target='_self', v-on='submit: send')
