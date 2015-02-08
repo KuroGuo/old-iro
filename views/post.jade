@@ -27,8 +27,8 @@ block main
         input(type='submit', value='POST', class='btn')
     #comments(v-show='1', style='display: none;')
       div.message(v-if='!comments.length')
-        span(v-if='commentsInfo.count !== 0') 加载中...
-        span(v-if='commentsInfo.count === 0') 目前尚未有讨论
+        span(v-if='commentsInfo.count || !joined') 加载中...
+        span(v-if='!commentsInfo.count && joined') 目前尚未有讨论
       div(v-show='comments.length', style='display: none;')
         .comments
           .comment(v-repeat='comment: comments')
