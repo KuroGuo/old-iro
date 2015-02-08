@@ -68,11 +68,11 @@ exports.comment = function (req, res, next) {
     return res.status(400).send('哥，不能为空啊');
   }
 
-  post.comment(id, { content: content }, function (err, comment) {
+  post.comment(id, { content: content }, function (err) {
     if (err)
       return next(err);
 
-    res.send(comment);
+    res.end();
   });
 };
 

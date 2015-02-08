@@ -37,11 +37,12 @@ block main
       input(type='hidden',name='id', value=post._id, v-model='id')
       .textarea.comment-content(
         class='textarea-content',
-        contenteditable='true',
+        contenteditable='{{!sending}}',
         v-class='focused: focused',
         v-on='input: sync')
       input(type='hidden', name='content', v-model='content')
-      input(type='submit', value='发表', class='btn')
+      input(type='submit', value='发表', class='btn', v-if='!sending')
+      input(type='submit', value='发送中...', class='btn', v-if='sending', disabled='disabled')
 
 block scripts
   script.

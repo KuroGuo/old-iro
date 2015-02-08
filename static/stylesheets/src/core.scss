@@ -99,6 +99,10 @@ input, textarea, button, [contenteditable=true] {
   &:active {
     @include box-shadow(inset 0 .15rem .5rem #369);
   }
+
+  &[disabled] {
+    pointer-events: none;
+  }
 }
 
 .link-btn {

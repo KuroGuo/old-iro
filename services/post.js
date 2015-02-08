@@ -103,7 +103,7 @@ exports.comment = function (postId, comment, callback) {
       if (!affects)
         return callback.call(this, new Error('affects 0'));
 
-      callback.call(this, null, comment);
+      callback.call(this);
     });
   });
 };
@@ -113,7 +113,7 @@ exports.findCommentsSortByLike = function (postId, page, callback) {
 };
 
 exports.findComments = function (postId, page, callback) {
-  findComments(postId, page, { 'comments._id': 1 }, callback);
+  findComments(postId, page, { 'comments._id': -1 }, callback);
 };
 
 exports.getCommentsInfo = function (postId, callback) {
@@ -159,7 +159,7 @@ function findComments(postId, page, sort, callback) {
     .match({ _id: postId })
     .project('comments')
     .unwind('comments')
-    .sort(sort || { 'comments._id': 1 })
+    .sort(sort || { 'comments._id': -1 })
     .skip(pagesize * (page - 1))
     .limit(pagesize)
     .exec(function (err, posts) {
