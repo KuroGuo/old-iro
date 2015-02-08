@@ -45,7 +45,7 @@ define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, i
       comments: [],
       commentsInfo: {},
       pagesize: 15,
-      currentPage: 0,
+      currentPage: 1,
       joined: false,
       pagerMode: 'simple',
       socketioHandlers: {
