@@ -42,9 +42,18 @@ exports.find = function (options, callback) {
 };
 
 exports.findHot = function (callback) {
-  exports.find({
-    sort: { likes: -1, _id: -1 }
-  }, callback);
+  Post
+    .aggregate()
+    .project({
+      _id: 1,
+      title: 1,
+      createTime: 1,
+      likes: 1,
+      unlikes: 1,
+      sort: { $subtract: ['$likes', '$unlikes'] }
+    })
+    .sort({ sort: -1, _id: -1 })
+    .exec(callback);
 };
 
 exports.findById = function (id, callback) {
