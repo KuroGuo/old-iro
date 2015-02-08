@@ -226,16 +226,21 @@ define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, i
       }
     },
     methods: {
-      check: function (e) {
+      onkeydown: function (e) {
         if (e.keyCode === 13 && !e.target.innerHTML)
+          return e.preventDefault();
+        if (e.ctrlKey && e.keyCode === 13) {
+          var submit = document.createEvent('HTMLEvents');
+          submit.initEvent('submit', false, true);
+          this.$el.querySelector('form').dispatchEvent(submit);
           e.preventDefault();
+        }
       },
       sync: function (e) {
         this.content = e.target.innerHTML;
       },
       send: function (e) {
         var view = this;
-        var form = e.target;
 
         var textarea = view.$el.querySelector('.textarea-content');
 

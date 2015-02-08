@@ -22,7 +22,7 @@ block main
         .textarea.comment-content.textarea-content(
           contenteditable='true',
           v-class='focused: focused',
-          v-on='keydown: check, input: sync')
+          v-on='keydown: onkeydown, input: sync')
         textarea(name='content', v-model='content', style='display: none;', required='required')
         input(type='submit', value='POST', class='btn')
     #comments(v-show='1', style='display: none;')
