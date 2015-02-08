@@ -6,7 +6,7 @@ var home = require('./controllers/http/home');
 var post = require('./controllers/http/post');
 
 router.get('/', home.index);
-// router.get('/about', home.about);
+router.get('/about', home.about);
 
 router.get('/p/:id', post.view);
 router.post('/p/create', post.create);
