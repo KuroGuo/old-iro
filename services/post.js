@@ -42,17 +42,24 @@ exports.find = function (options, callback) {
 };
 
 exports.findHot = function (callback) {
+  var yesterday = new Date();
+
+  yesterday.setYear(1900 + yesterday.getYear() - 1)
+
   Post
     .aggregate()
+    .match({ comments: { $exists: true } })
+    .sort({ createTime: -1, _id: -1 })
     .project({
       _id: 1,
       title: 1,
       createTime: 1,
       likes: 1,
       unlikes: 1,
-      sort: { $subtract: ['$likes', '$unlikes'] }
+      sort: { $size: '$comments' }
     })
-    .sort({ sort: -1, _id: -1 })
+    .sort({ sort: -1 })
+    .limit(30)
     .exec(callback);
 };
 
