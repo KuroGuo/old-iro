@@ -31,7 +31,7 @@ block main
           v-on='click: gotoPage(value), click: togglePagerMode',
           v-class='current: currentPage === value')
         span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
-  #form_comment_wrapper.card.editor
+  #form_comment_wrapper.card.editor(v-show='1', style='display: none;')
     h2 发表评论
     form#form_comment(action='/p/comment', method='post', target='_self', v-on='submit: send')
       input(type='hidden',name='id', value=post._id, v-model='id')
