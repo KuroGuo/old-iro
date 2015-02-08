@@ -70,8 +70,6 @@ define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, i
               throw err;
             }
 
-            var textarea = formCommentView.$el.querySelector('.textarea-content');
-            textarea.innerHTML = formCommentView.content = '';
             view.comments.$set(i, comment);
           },
           joinend: function (data) {
@@ -266,6 +264,8 @@ define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, i
         e.preventDefault();
 
         commentsView.insertComment(comment);
+
+        textarea.innerHTML = formCommentView.content = '';
       }
     }
   });
