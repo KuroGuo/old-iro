@@ -18,21 +18,9 @@
 
 @import "./partials/pager.scss";
 
-#panel {
+.comment-area-loading {
   margin-top: 1rem;
-  text-align: right;
-
-  .link-btn {
-    margin-left: .7rem;
-  }
-
-  .btn-like {
-    color: #0b2;
-  }
-
-  .btn-unlike {
-    color: #f44;
-  }
+  padding: 1rem;
 }
 
 #comments_wrapper {

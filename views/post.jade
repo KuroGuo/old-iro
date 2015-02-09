@@ -7,6 +7,7 @@ block main
   article#article.article.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes)
     h2.title= post.title
     .content!= post.content
+  .card.comment-area-loading(v-if='0') 加载中...
   #comments_wrapper.card(v-component='comments')
 
   script(type='text/x-template', id="comments_wrapper_template")
