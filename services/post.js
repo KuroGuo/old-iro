@@ -33,23 +33,40 @@ exports.create = function (post, callback) {
 };
 
 exports.find = function (options, callback) {
-  var mode = options.mode || 'lastComment';
+  var mode = options.mode || '-id';
   var pagesize = options.pagesize || 30;
   var page = options.page || 1;
 
-  var posts = Post.find();
+  Post.count(function (err, count) {
+    if (err)
+      return callback.call(this, err);
 
-  switch(mode) {
-    case 'lastComment': 
-      posts.sort({ lastCommentTime: -1, _id: -1 });
-      break;
-  }
+    var posts = Post.find();
 
-  posts
-    .select('-comments')
-    .skip(pagesize * (page - 1))
-    .limit(pagesize)
-    .exec(callback);
+    switch(mode) {
+      case 'lastComment': 
+        posts.sort({ lastCommentTime: -1, _id: -1 });
+        break;
+      case '-id': 
+        posts.sort({ _id: -1 });
+        break;
+    }
+
+    posts
+      .select('-comments')
+      .skip(pagesize * (page - 1))
+      .limit(pagesize)
+      .exec(function (err, posts) {
+        if (err)
+          return callback.call(this, err);
+
+        callback.call(this, null, {
+          posts: posts,
+          count: count,
+          pages: Math.ceil(count / pagesize)
+        });
+      });
+  });
 };
 
 exports.findHot = function (callback) {

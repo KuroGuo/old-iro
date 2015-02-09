@@ -32,17 +32,7 @@ block main
         span.id(v-if='!comment._id') 发送中...
         span.id(v-html='"#" + comment._id', v-if='comment._id')
         .comment-content(v-html='comment.content')
-    .pager
-      .simple(v-show='pagerMode === "simple"')
-        span.btn-page(v-repeat='simplePageButtons', v-html='text',
-          v-on='click: gotoPage(value)',
-          v-class='current: currentPage === value')
-        span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...
-      .full(v-show='pagerMode === "full"')
-        span.btn-page(v-repeat='fullPageButtons', v-html='text',
-          v-on='click: gotoPage(value), click: togglePagerMode',
-          v-class='current: currentPage === value')
-        span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...
+    include ./partials/pager.jade
 
 block scripts
   script.

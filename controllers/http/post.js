@@ -21,6 +21,28 @@ exports.create = function (req, res, next) {
   });
 };
 
+exports.list = function (req, res, next) {
+  var page = parseFloat(req.params.page || 1);
+
+  post.find({
+    mode: '-id',
+    page: page
+  }, function (err, result) {
+    if (err)
+      return next(err);
+
+    if (page > result.pages)
+      return res.redirect('/l/' + result.pages);
+
+    res.render('list', {
+      posts: result.posts,
+      pages: result.pages,
+      currentPage: page,
+      current: 'list'
+    });  
+  });
+};
+
 exports.view = function (req, res, next) {
   var id = req.params.id;
 

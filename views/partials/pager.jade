@@ -1,0 +1,11 @@
+.pager
+  .simple(v-show='pagerMode === "simple"')
+    span.btn-page(v-repeat='simplePageButtons', v-html='text',
+      v-on='click: gotoPage(value)',
+      v-class='current: currentPage === value')
+    span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...
+  .full(v-show='pagerMode === "full"')
+    span.btn-page(v-repeat='fullPageButtons', v-html='text',
+      v-on='click: gotoPage(value), click: togglePagerMode',
+      v-class='current: currentPage === value')
+    span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...

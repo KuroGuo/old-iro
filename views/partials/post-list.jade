@@ -1,0 +1,15 @@
+#post_list.card
+  each post in posts
+    .post
+      a(href='/p/'+post._id, target='_self', class='title')
+        span.text= post.title
+  if current === 'home' || current === 'list' && pages > 1
+    .panel
+      if current === 'home'
+        a(href='/l', class='btn-more', target='_self') 更多内容
+      else if current === 'list'
+        span.page-label= currentPage + '/' + pages
+        if currentPage > 1
+          a(href='/l/' + (currentPage - 1), target='_self', class='btn-page btn-pre-page') 上一页
+        if currentPage < pages
+          a(href='/l/' + (currentPage + 1), target='_self', class='btn-page btn-next-page') 下一页

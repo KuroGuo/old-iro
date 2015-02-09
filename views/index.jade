@@ -1,11 +1,7 @@
 extends ./_layout.jade
 
 block main
-  #post_list.card
-    each post in posts
-      .post
-        a(href='/p/'+post._id, target='_self', class='title')
-          span.text= post.title
+  include ./partials/post-list.jade
   #new_post_form_wrapper.card.editor
     h2 发布新内容
     form(action='/p/create', method='post', target='_self')

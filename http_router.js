@@ -8,6 +8,9 @@ var post = require('./controllers/http/post');
 router.get('/', home.index);
 router.get('/about', home.about);
 
+router.get('/l', post.list);
+router.get('/l/:page', post.list);
+
 router.get('/p/:id', post.view);
 router.post('/p/create', post.create);
 router.post('/p/like', post.like);

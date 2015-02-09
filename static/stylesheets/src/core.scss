@@ -1,6 +1,6 @@
 @import "compass/reset";
 @import "compass/css3";
-@import "common.scss";
+@import "./common.scss";
 
 html {
   font-size: 16px;
@@ -221,57 +221,9 @@ $width: 50rem;
   }
 }
 
+@import "./partials/post-list.scss";
 
-#post_list {
-  .post {
-    border-bottom: .1rem solid #eee;
-    .title {
-      padding: 1rem;
-      display: block;
-
-      .text {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        white-space: nowrap;
-        display: block;
-      }
-      &:visited > .text {
-        color: #666;
-      }
-    }
-  }
-}
-
-.editor {
-  padding: 1rem;
-  margin-top: 1rem;
-
-  h2 {
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-  }
-
-  .textbox, .textarea, .btn {
-    @include box-sizing(border-box);
-  }
-
-  .textbox, .textarea {
-    display: block;
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  .btn {
-    margin-right: .6rem;
-  }
-
-  .textarea {
-    resize: vertical;
-    min-height: 9em;
-    @include transition(min-height .6s);
-    position: relative;
-  }
-}
+@import "./partials/editor.scss";
 
 #footer {
   height: 6rem;

@@ -1,0 +1,30 @@
+.editor {
+  padding: 1rem;
+  margin-top: 1rem;
+
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.6rem;
+  }
+
+  .textbox, .textarea, .btn {
+    @include box-sizing(border-box);
+  }
+
+  .textbox, .textarea {
+    display: block;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    margin-right: .6rem;
+  }
+
+  .textarea {
+    resize: vertical;
+    min-height: 9em;
+    @include transition(min-height .6s);
+    position: relative;
+  }
+}

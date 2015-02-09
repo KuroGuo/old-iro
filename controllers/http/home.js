@@ -5,12 +5,13 @@ var post = require('../../services/post');
 exports.index = function (req, res, next) {
   post.find({
     mode: 'lastComment'
-  }, function (err, posts) {
+  }, function (err, result) {
     if (err)
       return next(err);
 
     res.render('index', {
-      posts: posts
+      posts: result.posts,
+      current: 'home'
     });  
   });
 };
