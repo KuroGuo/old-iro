@@ -7,45 +7,42 @@ block main
   article#article.article.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes)
     h2.title= post.title
     .content!= post.content
-    //- #panel(v-show='likes !== undefined && unlikes !== undefined', style='display: none;')
-    //-   a.link-btn.btn-like(v-on='click: like') 喜欢(
-    //-     span.like(v-html='likes')
-    //-     | )
-    //-   a.link-btn.btn-unlike(v-on='click: unlike') 不喜欢(
-    //-     span.unlike(v-html='unlikes')
-    //-     | )
-  #comments_wrapper.card
+  #comments_wrapper.card(v-component='comments')
+
+  script(type='text/x-template', id="comments_wrapper_template")
     h2.title 讨论
-    #form_comment_wrapper.editor(v-show='currentPage===1', style='display: none;')
-      form#form_comment(action='/p/comment', method='post', target='_self', v-on='submit: send')
-        input(type='hidden',name='postId', value=post._id, v-model='postId')
-        .textarea.comment-content.textarea-content(
-          contenteditable='true',
-          v-class='focused: focused',
-          v-on='keydown: onkeydown, input: sync')
-        textarea(name='content', v-model='content', style='display: none;', required='required')
-        input(type='submit', value='POST', class='btn')
-    #comments(v-show='1', style='display: none;')
-      div.message(v-if='!comments.length')
-        span(v-if='commentsInfo.count !== 0') 加载中...
-        span(v-if='commentsInfo.count === 0') 目前尚未有讨论
-      div(v-show='comments.length', style='display: none;')
-        .comments
-          .comment(v-repeat='comment: comments')
-            span.id(v-if='!comment._id') 发送中...
-            span.id(v-html='"#" + comment._id', v-if='comment._id')
-            .comment-content(v-html='comment.content')
-        .pager
-          .simple(v-show='pagerMode === "simple"')
-            span.btn-page(v-repeat='simplePageButtons', v-html='text',
-              v-on='click: gotoPage(value)',
-              v-class='current: currentPage === value')
-            span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
-          .full(v-show='pagerMode === "full"')
-            span.btn-page(v-repeat='fullPageButtons', v-html='text',
-              v-on='click: gotoPage(value), click: togglePagerMode',
-              v-class='current: currentPage === value')
-            span.btn-page(v-on='click: togglePagerMode', v-if='commentsInfo.pages > 5') ...
+    div.message(v-if='!comments.list.length')
+      span(v-if='comments.count !== 0') 加载中...
+      span(v-if='comments.count === 0') 目前尚未有讨论
+    #form_comment_wrapper.editor(v-component='form', v-if='comments.list.length')
+    #comments(v-component='list', v-if='comments.list.length')
+
+  script(type='text/x-template', id='form_comment_template')
+    form(action='/p/comment', method='post', target='_self', v-on='submit: send')
+      .textarea.comment-content.textarea-content(
+        contenteditable='true',
+        v-class='focused: focused',
+        v-on='keydown: onkeydown, input: sync')
+      textarea(name='content', v-model='content', style='display: none;', required='required')
+      input(type='submit', value='POST', class='btn')
+
+  script(type='text/x-template', id='comments_template')
+    .comments
+      .comment(v-repeat='comment: comments.list')
+        span.id(v-if='!comment._id') 发送中...
+        span.id(v-html='"#" + comment._id', v-if='comment._id')
+        .comment-content(v-html='comment.content')
+    .pager
+      .simple(v-show='pagerMode === "simple"')
+        span.btn-page(v-repeat='simplePageButtons', v-html='text',
+          v-on='click: gotoPage(value)',
+          v-class='current: currentPage === value')
+        span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...
+      .full(v-show='pagerMode === "full"')
+        span.btn-page(v-repeat='fullPageButtons', v-html='text',
+          v-on='click: gotoPage(value), click: togglePagerMode',
+          v-class='current: currentPage === value')
+        span.btn-page(v-on='click: togglePagerMode', v-if='comments.getPages() > 5') ...
 
 block scripts
   script.

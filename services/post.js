@@ -16,11 +16,14 @@ exports.create = function (post, callback) {
     if (err)
       return callback.call(this, err);
 
+    var now = new Date();
+
     var post = new Post({
       _id: id,
       title: title,
       content: content,
-      createTime: new Date(),
+      createTime: now,
+      lastCommentTime: now,
       likes: 0,
       unlikes: 0
     });
@@ -30,14 +33,22 @@ exports.create = function (post, callback) {
 };
 
 exports.find = function (options, callback) {
-  var criteria = options.criteria;
-  var sort = options.sort || { _id: -1 };
-  var limit = options.limit || 20;
+  var mode = options.mode || 'lastComment';
+  var pagesize = options.pagesize || 30;
+  var page = options.page || 1;
 
-  Post
-    .find(criteria, '-comments')
-    .sort(sort)
-    .limit(limit)
+  var posts = Post.find();
+
+  switch(mode) {
+    case 'lastComment': 
+      posts.sort({ lastCommentTime: -1, _id: -1 });
+      break;
+  }
+
+  posts
+    .select('-comments')
+    .skip(pagesize * (page - 1))
+    .limit(pagesize)
     .exec(callback);
 };
 
@@ -54,6 +65,7 @@ exports.findHot = function (callback) {
       _id: 1,
       title: 1,
       createTime: 1,
+      lastCommentTime: 1,
       likes: 1,
       unlikes: 1,
       sort: { $size: '$comments' }
@@ -100,10 +112,12 @@ exports.comment = function (postId, comment, callback) {
     if (err)
       return callback.call(this, err);
 
+    var now = new Date();
+
     var comment = {
       _id: commentId,
       content: content,
-      createTime: new Date(),
+      createTime: now,
       likes: 0,
       unlikes: 0
     };
@@ -111,7 +125,8 @@ exports.comment = function (postId, comment, callback) {
     Post.update({ _id: postId }, {
       $push: {
         comments: comment
-      }
+      },
+      lastCommentTime: now
     }, function (err, affects) {
       if (err)
         return callback.call(this, err);
@@ -161,7 +176,6 @@ exports.getCommentsInfo = function (options, callback) {
 
       if (!results.length) {
         return callback.call(this, null, {
-          pages: 0,
           pagesize: pagesize,
           count: 0
         });

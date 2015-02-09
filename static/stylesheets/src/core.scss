@@ -227,11 +227,14 @@ $width: 50rem;
     border-bottom: .1rem solid #eee;
     .title {
       padding: 1rem;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
       display: block;
 
+      .text {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+      }
       &:visited > .text {
         color: #666;
       }
