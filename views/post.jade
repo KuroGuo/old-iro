@@ -11,10 +11,10 @@ block main
 
   script(type='text/x-template', id="comments_wrapper_template")
     h2.title 讨论
+    #form_comment_wrapper.editor(v-component='form')
     div.message(v-if='!comments.list.length')
       span(v-if='comments.count !== 0') 加载中...
       span(v-if='comments.count === 0') 目前尚未有讨论
-    #form_comment_wrapper.editor(v-component='form')
     #comments(v-component='list', v-if='comments.list.length')
 
   script(type='text/x-template', id='form_comment_template')
