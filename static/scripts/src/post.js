@@ -177,7 +177,9 @@ define(['app', 'vue', 'superagent', 'socket.io'], function (app, Vue, request, i
             },
             receive: function (data) {
               var comment = data.body.comment;
-              this.comments.insert(comment);
+
+              if (this.currentPage === 1)
+                this.comments.insert(comment);
             }
           }
         }
