@@ -12,7 +12,7 @@ block main
 
   script(type='text/x-template', id="comments_wrapper_template")
     h2.title 讨论
-    #form_comment_wrapper.editor(v-component='form')
+    #form_comment_wrapper.editor(v-component='form', v-if='currentPage === 1')
     div.message(v-if='!comments.list.length')
       span(v-if='comments.count !== 0') 加载中...
       span(v-if='comments.count === 0') 目前尚未有讨论
