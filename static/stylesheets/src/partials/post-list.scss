@@ -2,9 +2,11 @@
 
 #post_list {
   .post {
+    position: relative;
     border-bottom: .1rem solid #eee;
     .title {
       padding: 1rem;
+      margin-right: 2rem;
       display: block;
 
       .text {
@@ -16,6 +18,16 @@
       &:visited > .text {
         color: #666;
       }
+    }
+    .comments-count {
+      position: absolute;
+      right: 1rem;
+      top: 0;
+      bottom: 0;
+      height: 1em;
+      margin: auto 0;
+      font-size: .9rem;
+      color: #aaa;
     }
   }
   .panel {

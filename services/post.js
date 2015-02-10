@@ -36,12 +36,14 @@ exports.find = function (options, callback) {
   var mode = options.mode || '-id';
   var pagesize = options.pagesize || 30;
   var page = options.page || 1;
+  var includeContent = options.includeContent;
+  var includeComments = options.includeComments;
 
   Post.count(function (err, count) {
     if (err)
       return callback.call(this, err);
 
-    var posts = Post.find();
+    var posts = Post.aggregate().match({ comments: { $exists: true } });
 
     switch(mode) {
       case 'lastComment': 
@@ -52,10 +54,24 @@ exports.find = function (options, callback) {
         break;
     }
 
+    var inclusion = {
+      title: 1,
+      createTime: 1,
+      lastCommentTime: 1,
+      likes: 1,
+      unlikes: 1,
+      commentsCount: { $size: '$comments' }
+    };
+
+    if (includeContent)
+      inclusion.content = 1;
+    if (includeComments)
+      inclusion.comments = 1;
+
     posts
-      .select('-comments')
       .skip(pagesize * (page - 1))
       .limit(pagesize)
+      .project(inclusion)
       .exec(function (err, posts) {
         if (err)
           return callback.call(this, err);

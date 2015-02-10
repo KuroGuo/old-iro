@@ -6,8 +6,8 @@ exports.create = function (req, res, next) {
   var title = req.body.title;
   var content = req.body.content;
 
-  if (!title || !content) {
-    return res.status(400).send('哥，标题和内容都不能为空啊');
+  if (!title) {
+    return res.status(400).send('标题不能为空');
   }
 
   post.create({

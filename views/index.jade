@@ -10,7 +10,7 @@ block main
         contenteditable='true',
         v-class='focused: focused',
         v-on='input: sync')
-      textarea(name='content', v-model='content', required='required', style="display: none;")
+      textarea(name='content', v-model='content', style="display: none;")
       input(type='submit', value='发布', class='btn')
 
 block scripts
