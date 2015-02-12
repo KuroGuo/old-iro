@@ -1,4 +1,7 @@
 extends ./_layout.jade
 
+append head
+  link(rel='stylesheet', href='/static/stylesheets/dist/list.css')
+
 block main
   include ./partials/post-list.jade
