@@ -8,8 +8,8 @@ block main
     h2.title= post.title
     .info
       if post.writer
-        span.lable.writer= '@' + post.writer
-      span.lable.createtime= '发布于 ' + post.createTimeString
+        span.label.writer= '@' + post.writer
+      span.label.createtime= '发布于 ' + post.createTimeString
     .content!= post.content
   .card.comment-area-loading(v-if='0') 加载中...
   #comments_wrapper.card(v-component='comments')
@@ -30,15 +30,17 @@ block main
         v-on='keydown: onkeydown, input: sync')
       textarea(name='content', v-model='content', style='display: none;', required='required')
       input(type='submit', value='POST', class='btn')
+      .info
+        span.label= '当前昵称：' + user.name
 
   script(type='text/x-template', id='comments_template')
     .comments
       .comment(v-repeat='comment: comments.list')
         .info
-          span.lable.id(v-if='!comment._id') 发送中...
-          span.lable.id(v-html='"#" + comment._id', v-if='comment._id')
-          span.lable.writer(v-html='"@" + comment.writer', v-if='comment.writer')
-          span.lable.createtime(v-html='comment.createTimeString', v-if='comment.createTimeString')
+          span.label.id(v-if='!comment._id') 发送中...
+          span.label.id(v-html='"#" + comment._id', v-if='comment._id')
+          span.label.writer(v-html='"@" + comment.writer', v-if='comment.writer')
+          span.label.createtime(v-html='comment.createTimeString', v-if='comment.createTimeString')
         .comment-content(v-html='comment.content')
     include ./partials/pager.jade
 

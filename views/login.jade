@@ -6,6 +6,7 @@ html
   link(rel='stylesheet', href='/static/stylesheets/dist/login.css')
 
   body
+    include ./partials/browser_too_old.jade
     #container
       img(class='logo', alt='logo', src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODciIGhlaWdodD0iMjciIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPHJlY3QgeD0iMCIgeT0iMCIgcng9IjQiIHJ5PSI0IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0eWxlPSJmaWxsOiByZ2IoMjU1LDk1LDk1KTsgc3Ryb2tlLXdpZHRoOiAxOyIgLz4KICA8cmVjdCB4PSIzMCIgeT0iMCIgcng9IjQiIHJ5PSI0IiB3aWR0aD0iMjciIGhlaWdodD0iMjciIHN0eWxlPSJmaWxsOiByZ2IoMTY4LDIxMSwzNik7IHN0cm9rZS13aWR0aDogMTsiIC8+CiAgPHJlY3QgeD0iNjAiIHk9IjAiIHJ4PSI0IiByeT0iNCIgd2lkdGg9IjI3IiBoZWlnaHQ9IjI3IiBzdHlsZT0iZmlsbDogcmdiKDgwLDE5MiwyMzMpOyBzdHJva2Utd2lkdGg6IDE7IiAvPgo8L3N2Zz4=')
       form(action='/login', method='post', target='_self')

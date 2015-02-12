@@ -1,5 +1,8 @@
 extends ./_layout.jade
 
+append head
+  link(rel='stylesheet', href='/static/stylesheets/dist/index.css')
+
 block main
   include ./partials/post-list.jade
   #new_post_form_wrapper.card.editor
@@ -12,6 +15,8 @@ block main
         v-on='input: sync')
       textarea(name='content', v-model='content', style="display: none;")
       input(type='submit', value='发布', class='btn')
+      .info
+        span.label= '当前昵称：' + user.name
 
 block scripts
   script.

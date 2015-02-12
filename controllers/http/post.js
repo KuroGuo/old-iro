@@ -47,6 +47,7 @@ exports.list = function (req, res, next) {
 };
 
 exports.view = function (req, res, next) {
+  var user = req.session.user;
   var id = req.params.id;
 
   post.findById(id, function (err, post) {
@@ -60,7 +61,8 @@ exports.view = function (req, res, next) {
 
     res.render('post', {
       post: post,
-      pageTitle: post.title
+      pageTitle: post.title,
+      user: user
     });
   });
 };

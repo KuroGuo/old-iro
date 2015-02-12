@@ -1,6 +1,9 @@
+@import "compass/css3";
+
 .editor {
   padding: 1rem;
   margin-top: 1rem;
+  position: relative;
 
   h2 {
     margin-bottom: 1rem;
@@ -26,5 +29,12 @@
     min-height: 9em;
     @include transition(min-height .6s);
     position: relative;
+  }
+
+  .info {
+    position: absolute;
+    display: inline-block;
+    bottom: 1rem;
+    right: 1rem;
   }
 }

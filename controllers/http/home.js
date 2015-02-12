@@ -3,6 +3,8 @@
 var post = require('../../services/post');
 
 exports.index = function (req, res, next) {
+  var user = req.session.user;
+
   post.find({
     mode: 'lastComment'
   }, function (err, result) {
@@ -11,7 +13,8 @@ exports.index = function (req, res, next) {
 
     res.render('index', {
       posts: result.posts,
-      current: 'home'
+      current: 'home',
+      user: user
     });  
   });
 };

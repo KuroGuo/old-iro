@@ -6,13 +6,7 @@ html
     block head
 
   body
-    | <!--[if lte IE 8]>
-    #browser_too_old
-      .container
-        h1 :( 你的浏览器太旧
-        p 请升级你的浏览器
-    | <![endif]-->
-
+    include ./partials/browser_too_old.jade
     header#header
       .container
         h1: a(href='/', target='_self', title='iro | colorful')

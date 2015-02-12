@@ -30,7 +30,7 @@ body {
     position: absolute;
     top: .5rem;
     left: .5rem;
-    .lable {
+    .label {
       font-size: .9rem;
       color: #aaa;
       margin-right: 1em;
@@ -192,10 +192,6 @@ $width: 50rem;
     }
   }
 }
-
-@import "./partials/post-list.scss";
-
-@import "./partials/editor.scss";
 
 #footer {
   height: 6rem;
