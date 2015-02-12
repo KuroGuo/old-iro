@@ -1,54 +1,16 @@
-@import "compass/reset";
 @import "compass/css3";
 @import "./common.scss";
 
-html {
-  font-size: 16px;
-}
+@import "./partials/reset.scss";
 
 body {
-  font-family: $font-stack;
-  color: #333;
   background-color: #efefef;
 }
 
-a {
-  text-decoration: none;
-  color: #258fb8;
-  outline: none;
-}
-img {
-  vertical-align: bottom;
-}
-
-input, textarea, button, [contenteditable=true] {
-  outline: none;
-  font: inherit;
-  color: inherit;
-  &::-moz-focus-inner {
-    border: none;
-    outline: none;
-    padding: 0;
-    margin: 0;
-  }
-}
-
-.textbox, .textarea {
-  border: .1rem solid #ddd;
-  border-radius: .3rem;
-  @include box-shadow(inset 0 .1rem .4rem #ddd);
-}
-
-.textbox {
-  height: 2.2em;
-  padding: 0 .5rem;
-}
-
-.textarea {
-  padding: .5rem;
-}
+@import "./partials/input.scss";
 
 .article {
+  position: relative;
   padding: .3rem 1rem 1rem 1rem;
   overflow: hidden;
 
@@ -62,6 +24,17 @@ input, textarea, button, [contenteditable=true] {
     text-align: center;
     font-size: 1.25rem;
     margin: 1em 0;
+  }
+
+  .info {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    .lable {
+      font-size: .9rem;
+      color: #aaa;
+      margin-right: 1em;
+    }
   }
 }
 
@@ -160,14 +133,14 @@ $width: 50rem;
       top: 0;
       a {
         display: block;
-        width: 72px;
+        width: 4.5rem;
         height: $height;
         font-size: 3rem;
         color: black;
         font-family: Italiana, $font-stack;
-        background-image: url(http://kuro-iro.b0.upaiyun.com/images/icon-72.png);
+        background-image: url(/static/images/logo.svg);
         background-repeat: no-repeat;
-        background-size: cover;
+        background-size: 3rem;
         background-position: center center;
       }
     } 
@@ -177,7 +150,7 @@ $width: 50rem;
     position: absolute;
     right: 0;
     top: 0;
-    width: 10rem;
+    width: 14rem;
     height: $height;
     line-height: $height;
     text-align: right;

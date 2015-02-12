@@ -1,0 +1,15 @@
+doctype html
+html
+  head
+  include ./partials/head.jade
+  link(rel='stylesheet', href='/static/stylesheets/dist/login.css')
+
+  body
+    #container
+      img(class='logo', src='/static/images/logo.svg', alt='logo')
+      form(action='/login', method='post', target='_self')
+        input(type='text', class='textbox', name='nickname', placeholder='name', required='required')
+
+  script.
+    var textboxName = document.querySelector('.textbox[name=nickname]');
+    textboxName.focus();

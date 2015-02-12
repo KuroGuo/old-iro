@@ -8,12 +8,14 @@ var postSchema = new mongoose.Schema({
   content: String,
   createTime: Date,
   lastCommentTime: Date,
+  writer: String,
   likes: Number,
   unlikes: Number,
   comments: [{
     _id: Number,
     content: String,
     createTime: Date,
+    writer: String,
     likes: Number,
     unlikes: Number
   }]

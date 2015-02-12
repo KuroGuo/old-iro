@@ -1,0 +1,50 @@
+@import "compass/css3";
+@import "./common.scss";
+
+@import "./partials/reset.scss";
+
+html {
+  height: 95%
+}
+
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  overflow: hidden;
+  position: relative;
+}
+
+#container {
+  position: absolute;
+  width: 13rem;
+  height: 10rem;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  .logo {
+    vertical-align: bottom;
+    margin-bottom: 5rem;
+    width: 100%;
+  }
+  .textbox {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0 auto;
+    width: 8em;
+    height: 1.8em;
+    @include box-sizing(border-box);    
+    border: none;
+    border-bottom: .1rem solid #aaa;
+    text-align: inherit;
+    outline: none;
+    font: inherit;
+  }
+}

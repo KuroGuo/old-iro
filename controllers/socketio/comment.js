@@ -14,6 +14,7 @@ exports.send = function (socket, data) {
   var postId = data.body.postId;
   var tempId = data.body.tempId;
   var content = data.body.content;
+  var writer = socket.handshake.session.user.name;
 
   if (!postId || !content) {
     return socket.emit('comment', {
@@ -23,7 +24,7 @@ exports.send = function (socket, data) {
     });
   }
 
-  post.comment(postId, { content: content }, function (err, comment) {
+  post.comment(postId, { content: content, writer: writer }, function (err, comment) {
     if (err) {
       return socket.emit('comment', {
         method: 'sendEnd',

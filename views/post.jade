@@ -6,6 +6,10 @@ append head
 block main
   article#article.article.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes)
     h2.title= post.title
+    .info
+      if post.writer
+        span.lable.writer= '@' + post.writer
+      span.lable.createtime= '发布于 ' + post.createTimeString
     .content!= post.content
   .card.comment-area-loading(v-if='0') 加载中...
   #comments_wrapper.card(v-component='comments')
@@ -30,8 +34,11 @@ block main
   script(type='text/x-template', id='comments_template')
     .comments
       .comment(v-repeat='comment: comments.list')
-        span.id(v-if='!comment._id') 发送中...
-        span.id(v-html='"#" + comment._id', v-if='comment._id')
+        .info
+          span.lable.id(v-if='!comment._id') 发送中...
+          span.lable.id(v-html='"#" + comment._id', v-if='comment._id')
+          span.lable.writer(v-html='"@" + comment.writer', v-if='comment.writer')
+          span.lable.createtime(v-html='comment.createTimeString', v-if='comment.createTimeString')
         .comment-content(v-html='comment.content')
     include ./partials/pager.jade
 

@@ -9,6 +9,7 @@ exports.commentPagesize = 15;
 exports.create = function (post, callback) {
   var title = post.title;
   var content = post.content;
+  var writer = post.writer;
 
   content = xss(content);
 
@@ -23,6 +24,7 @@ exports.create = function (post, callback) {
       title: title,
       content: content,
       createTime: now,
+      writer: writer,
       lastCommentTime: now,
       likes: 0,
       unlikes: 0
@@ -57,6 +59,7 @@ exports.find = function (options, callback) {
     var inclusion = {
       title: 1,
       createTime: 1,
+      writer: 1,
       lastCommentTime: 1,
       likes: 1,
       unlikes: 1,
@@ -83,29 +86,6 @@ exports.find = function (options, callback) {
         });
       });
   });
-};
-
-exports.findHot = function (callback) {
-  var yesterday = new Date();
-
-  yesterday.setYear(1900 + yesterday.getYear() - 1)
-
-  Post
-    .aggregate()
-    .match({ comments: { $exists: true } })
-    .sort({ createTime: -1, _id: -1 })
-    .project({
-      _id: 1,
-      title: 1,
-      createTime: 1,
-      lastCommentTime: 1,
-      likes: 1,
-      unlikes: 1,
-      sort: { $size: '$comments' }
-    })
-    .sort({ sort: -1 })
-    .limit(30)
-    .exec(callback);
 };
 
 exports.findById = function (id, callback) {
@@ -138,6 +118,7 @@ exports.unlike = function (id, callback) {
 
 exports.comment = function (postId, comment, callback) {
   var content = comment.content;
+  var writer = comment.writer;
 
   content = xss(content);
 
@@ -151,6 +132,7 @@ exports.comment = function (postId, comment, callback) {
       _id: commentId,
       content: content,
       createTime: now,
+      writer: writer,
       likes: 0,
       unlikes: 0
     };
