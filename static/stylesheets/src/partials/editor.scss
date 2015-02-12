@@ -27,7 +27,6 @@
   .textarea {
     resize: vertical;
     min-height: 9em;
-    @include transition(min-height .6s);
     position: relative;
   }
 

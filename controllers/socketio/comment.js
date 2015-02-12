@@ -1,6 +1,7 @@
 'use strict';
 
 var post = require('../../services/post');
+var date = require('../../utils/date');
 
 exports.join = function (socket, data) {
   var postId = data.body.postId;
@@ -32,6 +33,8 @@ exports.send = function (socket, data) {
         err: err.message
       });
     }
+
+    comment.createTimeString = date.toDateTimeString(comment.createTime);
 
     socket.emit('comment', {
       method: 'sendEnd',
