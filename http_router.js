@@ -16,6 +16,7 @@ router.get('/logout', home.logout);
 router.get('/l', post.list);
 router.get('/l/:page', post.list);
 
+router.get('/p:id', auth.userRequired, post.view);
 router.get('/p/:id', auth.userRequired, post.view);
 router.post('/p/create', auth.userRequired, post.create);
 router.post('/p/like', auth.userRequired, post.like);

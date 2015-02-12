@@ -1,7 +1,7 @@
 #post_list.card
   each post in posts
     .post
-      a(href='/p/'+post._id, target='_self', class='title')
+      a(href='/p'+post._id, target='_self', class='title')
         span.text= post.title
       span.comments-count= post.commentsCount
   if current === 'home' || current === 'list' && pages > 1
