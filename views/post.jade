@@ -5,12 +5,13 @@ append head
 
 block main
   article#article.article.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes)
-    h2.title= post.title
     .info
       if post.writer
         span.label.writer= '@' + post.writer
       span.label.createtime= '发布于 ' + post.createTimeString
-    .content!= post.content
+    .body
+      h2.title= post.title
+      .content!= post.content
   .card.comment-area-loading(v-if='0') 加载中...
   #comments_wrapper.card(v-component='comments')
 

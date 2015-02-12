@@ -10,31 +10,31 @@ body {
 @import "./partials/input.scss";
 
 .article {
-  position: relative;
-  padding: 1rem;
-  overflow: hidden;
-
-  h2 {
-    text-align: center;
-    font-size: 1.5rem;
-    margin: 1.2em 0;
-  }
-
-  h3 {
-    text-align: center;
-    font-size: 1.25rem;
-    margin: 1em 0;
-  }
-
   .info {
-    position: absolute;
-    top: .5rem;
-    left: .5rem;
+    border-bottom: .1rem solid #eee;
+    width: 100%;
+    padding: .3rem;
     .label {
       font-size: .9rem;
       color: #aaa;
       margin-right: 1em;
     }
+  }
+
+  .body {
+    padding: 1rem;
+    overflow: hidden;
+    h2 {
+      text-align: center;
+      font-size: 1.5rem;
+      margin: 1.2em 0;
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 1.25rem;
+      margin: 1em 0;
+    }  
   }
 }
 
