@@ -19,7 +19,7 @@
           span.text= post.title
         span.comments-count= post.commentsCount
   if current === 'home' || current === 'list' && pages > 1
-    .panel.card
+    .panel(class=current==='home'?'card':'')
       if current === 'home'
         a.btn-more(href='/l', target='_self') 更多内容
       else if current === 'list'
