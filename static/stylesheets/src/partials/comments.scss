@@ -1,6 +1,10 @@
 .comments_wrapper {
   overflow: hidden;
 
+  .comments-panel {
+    min-height: 1rem;
+  }
+
   .comment-content {
     line-height: 1.5em;
     word-wrap: break-word;
