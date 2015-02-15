@@ -1,7 +1,7 @@
 script(type='text/x-template', id="comments_wrapper_template")
   .comments_wrapper
     div(v-if='!load')
-      a.link-btn(v-html='"查看评论("+ post.commentsCount +")"',
+      a.link-btn(v-html='"讨论("+ post.commentsCount +")"',
         v-on='click: broadcastLoad')
     div(v-if='load')
       h2.title 讨论
