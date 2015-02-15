@@ -212,7 +212,7 @@ define(['vue', 'superagent', 'socket.io'], function (Vue, request, io) {
           method: 'join',
           body: { postId: view.post.id }
         });
-console.log('join', view.post.id);
+
         view.load = true;
       }
     },
