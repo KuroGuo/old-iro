@@ -39,6 +39,7 @@ exports.send = function (socket, data) {
     socket.emit('comment', {
       method: 'sendEnd',
       body: {
+        postId: postId,
         tempId: tempId,
         comment: comment
       }
@@ -46,6 +47,7 @@ exports.send = function (socket, data) {
     socket.broadcast.to(postId).emit('comment', {
       method: 'receive',
       body: {
+        postId: postId,
         comment: comment
       }
     });

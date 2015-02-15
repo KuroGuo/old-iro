@@ -152,8 +152,13 @@ define(['vue', 'superagent', 'socket.io'], function (Vue, request, io) {
           comment: {
             sendEnd: function (data) {
               var err = data.err;
+              var postId = data.body.postId;
               var tempId = data.body.tempId;
               var comment = data.body.comment;
+
+              if (postId !== this.post.id) {
+                return;
+              }
 
               var i;
               for (i = 0; i < this.comments.list.length; i++) {
@@ -174,7 +179,12 @@ define(['vue', 'superagent', 'socket.io'], function (Vue, request, io) {
               this.joined = true;
             },
             receive: function (data) {
+              var postId = data.body.postId;
               var comment = data.body.comment;
+
+              if (postId !== this.post.id) {
+                return;
+              }
 
               if (this.currentPage === 1)
                 this.comments.insert(comment);
@@ -202,7 +212,7 @@ define(['vue', 'superagent', 'socket.io'], function (Vue, request, io) {
           method: 'join',
           body: { postId: view.post.id }
         });
-
+console.log('join', view.post.id);
         view.load = true;
       }
     },
