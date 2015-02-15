@@ -1,6 +1,6 @@
 script(type='text/x-template', id="comments_wrapper_template")
   .comments_wrapper
-    .comments-panel(v-if='!load')
+    div(v-if='!load')
       a.link-btn(v-html='"讨论("+ post.commentsCount +")"',
         v-on='click: broadcastLoad')
     div(v-if='load')
