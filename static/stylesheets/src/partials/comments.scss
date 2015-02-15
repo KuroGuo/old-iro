@@ -1,6 +1,20 @@
 .comments_wrapper {
   overflow: hidden;
 
+  .comment-content {
+    line-height: 1.5em;
+    word-wrap: break-word;
+
+    p {
+      margin: 1.2rem 0;
+    }
+
+    img {
+      max-width: 100% !important;
+      max-height: 10em !important;
+    }
+  }
+
   .link-btn {
     display: inline-block;
     padding: 1rem;
@@ -46,8 +60,6 @@
 
       .comment-content {
         padding: 1rem;
-        word-wrap: break-word;
-        line-height: 1.5em;
       }
     }
   }
