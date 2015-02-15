@@ -1,0 +1,35 @@
+script(type='text/x-template', id="comments_wrapper_template")
+  .comments_wrapper
+    div(v-if='!load')
+      a.link-btn(v-html='"查看评论("+ post.commentsCount +")"',
+        v-on='click: broadcastLoad')
+    div(v-if='load')
+      h2.title 讨论
+      div(v-component='form', v-if='currentPage === 1')
+      div.message(v-if='!comments.list.length')
+        span(v-if='comments.count !== 0') 加载中...
+        span(v-if='comments.count === 0') 目前尚未有讨论
+      div(v-component='list', v-if='comments.list.length')
+
+script(type='text/x-template', id='form_comment_template')
+  .form_comment_wrapper.editor
+    form(action='/p/comment', method='post', target='_self', v-on='submit: send')
+      .textarea.comment-content.textarea-content(
+        contenteditable='true',
+        v-class='focused: focused',
+        v-on='keydown: onkeydown, input: sync')
+      textarea(name='content', v-model='content', style='display: none;', required='required')
+      input(type='submit', value='POST', class='btn')
+      .info
+        span.label= '当前昵称：' + user.name
+
+script(type='text/x-template', id='comments_template')
+  .comments
+    .comment(v-repeat='comment: comments.list')
+      .info
+        span.label.id(v-if='!comment._id') 发送中...
+        span.label.id(v-html='"#" + comment._id', v-if='comment._id')
+        span.label.writer(v-html='"@" + comment.writer', v-if='comment.writer')
+        span.label.createtime(v-html='comment.createTimeString', v-if='comment.createTimeString')
+      .comment-content(v-html='comment.content')
+  include ./comments-pager.jade

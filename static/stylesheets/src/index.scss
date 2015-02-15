@@ -1,6 +1,35 @@
 @import "compass/css3";
 @import "./common.scss";
 
-@import "./partials/post-list.scss";
-
 @import "./partials/editor.scss";
+@import "./partials/post-list.scss";
+@import "./partials/pager.scss";
+@import "./partials/comments.scss";
+
+
+#new_post_form_wrapper {
+  margin-bottom: 1rem;
+}
+
+#post_list {
+  .post {
+    margin-bottom: 1rem;
+    .article {
+      .body {
+        padding: 0 1rem;
+        h2 {
+          font-size: 1.3rem;
+          text-align: left;
+          margin: .8em 0;
+          .title {
+            margin: 0;
+          }
+        }    
+      }
+    }
+  }
+  .panel {
+    background-color: white;
+    text-align: center;
+  }
+}

@@ -4,9 +4,8 @@ append head
   link(rel='stylesheet', href='/static/stylesheets/dist/index.css')
 
 block main
-  include ./partials/post-list.jade
   #new_post_form_wrapper.card.editor
-    h2 发布新内容
+    h2 发布你喜欢的
     form(action='/p/create', method='post', target='_self')
       input(type='text', name='title', placeholder='标题', class='textbox', required='required')
       .textarea.content(
@@ -17,6 +16,10 @@ block main
       input(type='submit', value='发布', class='btn')
       .info
         span.label= '当前昵称：' + user.name
+
+  include ./partials/post-list.jade
+
+  include ./partials/comments.jade
 
 block scripts
   script.

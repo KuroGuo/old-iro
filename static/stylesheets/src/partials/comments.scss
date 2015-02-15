@@ -1,0 +1,53 @@
+.comments_wrapper {
+  overflow: hidden;
+
+  .link-btn {
+    display: inline-block;
+    padding: 1rem;
+  }
+
+  .editor {
+    padding-top: 0;
+    .textarea {
+      min-height: 2.3em;
+    }
+    .btn {
+      height: 2em;
+      font-size: .9rem;
+    }
+  }
+
+  .title {
+    font-size: 1.6rem;
+    margin: 1rem;
+  }
+
+  .message {
+    padding: 1rem;
+    border-top: .1rem solid #eee;
+  }
+
+  .comments {
+    border-bottom: .1rem solid #eee;
+
+    .comment {
+      border-top: .1rem solid #eee;
+
+      .info {
+        padding: .2rem 1rem;
+        border-bottom: .1rem solid #eee;
+        .label {
+          font-size: .9rem;
+          line-height: 1.3em;
+          color: #aaa;
+          margin-right: 1em;
+        }
+      }
+
+      .comment-content {
+        padding: 1rem;
+        word-wrap: break-word;
+      }
+    }
+  }
+}

@@ -3,6 +3,7 @@
 var xss = require('xss');
 var Post = require('../db/post');
 var counter = require('./counter');
+var date = require('../utils/date');
 
 exports.commentPagesize = 15;
 
@@ -58,6 +59,7 @@ exports.find = function (options, callback) {
 
     var inclusion = {
       title: 1,
+      content: 1,
       createTime: 1,
       writer: 1,
       lastCommentTime: 1,
@@ -79,6 +81,11 @@ exports.find = function (options, callback) {
         if (err)
           return callback.call(this, err);
 
+        posts.forEach(function (post) {
+          if (post.createTime instanceof Date)
+            post.createTimeString = date.toDateTimeString(post.createTime);
+        });
+
         callback.call(this, null, {
           posts: posts,
           count: count,
@@ -89,7 +96,14 @@ exports.find = function (options, callback) {
 };
 
 exports.findById = function (id, callback) {
-  Post.findById(id, '-comments', callback)
+  Post.findById(id, '-comments', function (err, post) {
+    if (err)
+      return callback.call(this, err);
+
+    post.createTimeString = date.toDateTimeString(post.createTime);
+
+    callback.call(this, null, post);
+  })
 };
 
 exports.like = function (id, callback) {
@@ -228,6 +242,10 @@ function findComments(options, callback) {
 
       var comments = posts.map(function (post) {
         return post.comments;
+      });
+
+      comments.forEach(function (comment) {
+        comment.createTimeString = date.toDateTimeString(comment.createTime);
       });
 
       callback.call(this, null, comments);

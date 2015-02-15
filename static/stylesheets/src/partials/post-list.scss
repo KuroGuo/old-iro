@@ -4,8 +4,9 @@
   .post {
     position: relative;
     border-bottom: .1rem solid #eee;
+    overflow: hidden;
     .title {
-      padding: 1rem;
+      margin: 1rem;
       display: block;
 
       .text {
@@ -43,6 +44,7 @@
       text-align: center;
     }
     .btn-more {
+      left: 0;
       right: 0;
     }
     .btn-pre-page {

@@ -1,7 +1,6 @@
 'use strict';
 
 var post = require('../../services/post');
-var date = require('../../utils/date');
 
 exports.create = function (req, res, next) {
   var title = req.body.title;
@@ -56,8 +55,6 @@ exports.view = function (req, res, next) {
 
     if (!post)
       return res.redirect('/');
-
-    post.createTimeString = date.toDateTimeString(post.createTime);
 
     res.render('post', {
       post: post,
@@ -118,10 +115,6 @@ exports.comments = function (req, res, next) {
   }, function (err, comments) {
     if (err)
       return next(err);
-
-    comments.forEach(function (comment) {
-      comment.createTimeString = date.toDateTimeString(comment.createTime);
-    });
 
     res.send(comments);
   });
