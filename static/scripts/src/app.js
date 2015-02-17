@@ -65,7 +65,7 @@ define(['vue', 'velocity'], function (Vue, Velocity) { 'use strict';
           var view = this;
           if (!view.requestToken) {
             view.requestToken = setTimeout(function () {
-              if (window.scrollY <= view.scrollY) {
+              if (window.scrollY <= view.scrollY || window.scrollY) {
                 view.navigitorShow = true;
                 view.lastNavigitorShowScrollY = window.scrollY;
               } else if (window.scrollY > view.lastNavigitorShowScrollY + 100) {
