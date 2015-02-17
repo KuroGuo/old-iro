@@ -2,9 +2,6 @@
 @import "./common.scss";
 
 @import "./partials/editor.scss";
-@import "./partials/pager.scss";
-@import "./partials/comments.scss";
-
 
 #new_post_form_wrapper {
   margin-bottom: 1rem;
@@ -29,8 +26,10 @@
         margin: 0;
       }
     }
-    .comment-area {
-      min-height: 1rem;
+    .post-panel {
+      .link-btn {
+        padding: 1rem;
+      }
     }
   }
   .panel {

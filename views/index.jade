@@ -21,7 +21,7 @@ block main
 
   #post_list
     each post in posts
-      .post.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes, data-comments-count=post.commentsCount)
+      .post.card
         article.article
           .info
             if post.writer
@@ -32,7 +32,8 @@ block main
               a.title(href='/p'+post._id, target='_self')
                 span.text= post.title
             .content!= post.content
-        div.comment-area(v-component='comments')
+        .post-panel
+          a.link-btn(href='/p'+post._id, target='_self') 讨论(#{post.commentsCount})
     .panel.card
       a.btn-more(href='/l', target='_self') 更多内容
 
