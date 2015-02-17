@@ -15,7 +15,17 @@ gulp.task('superagent', function () {
     .pipe(gulp.dest('./static/scripts/dist/lib/'));
 });
 
-gulp.task('default', ['vue', 'superagent'], function () {
+gulp.task('velocity', function () {
+  gulp.src('./static/bower_components/velocity/velocity.min.js')
+    .pipe(gulp.dest('./static/scripts/dist/lib/'));
+});
+
+gulp.task('k-tap', function () {
+  gulp.src('./static/bower_components/k-tap/dist/k-tap.js')
+    .pipe(gulp.dest('./static/scripts/dist/lib/'));
+});
+
+gulp.task('default', ['vue', 'superagent', 'velocity', 'k-tap'], function () {
   gulp.src('./static/stylesheets/src/**/*.css')
     .pipe(gulp.dest('./static/stylesheets/dist/'));
 
@@ -30,7 +40,7 @@ gulp.task('default', ['vue', 'superagent'], function () {
     .pipe(gulp.dest('./static/scripts/dist/'));
 });
 
-gulp.task('production', ['vue', 'superagent'], function () {
+gulp.task('production', ['vue', 'superagent', 'velocity', 'k-tap'], function () {
   gulp.src('./static/stylesheets/src/**/*.css')
     .pipe(minifyCSS())
     .pipe(gulp.dest('./static/stylesheets/dist/'));

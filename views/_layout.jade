@@ -24,6 +24,16 @@ html
 
     footer#footer
 
+    #navigitor
+      .inner(v-show='navigitorShow', v-transition='show')
+        .button.top(title='返回顶部', v-on='click: top')
+          .text TOP
+        if current === 'home'
+          .button.pre(title='上一条', v-on='click: pre')
+            .text.iconfont.icon-chevron-up
+          .button.next(title='下一条', v-on='click: next')
+            .text.iconfont.icon-chevron-down
+
     script(src='/static/components/require/require.js')
     script(src='/static/scripts/dist/config.js')
     block scripts

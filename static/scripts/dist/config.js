@@ -1,1 +1,1 @@
-require.config({baseUrl:"/static/scripts/dist",paths:{vue:"./lib/vue.min",superagent:"./lib/superagent","socket.io":"/socket.io/socket.io"}});
+require.config({baseUrl:"/static/scripts/dist",paths:{vue:"./lib/vue.min",superagent:"./lib/superagent","socket.io":"/socket.io/socket.io",velocity:"./lib/velocity.min","k-tap":"./lib/k-tap"}});

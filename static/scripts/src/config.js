@@ -3,6 +3,8 @@ require.config({
   paths: {
     vue: './lib/vue.min',
     superagent: './lib/superagent',
-    'socket.io': '/socket.io/socket.io'
+    'socket.io': '/socket.io/socket.io',
+    'velocity': './lib/velocity.min',
+    'k-tap': './lib/k-tap'
   }
 });
