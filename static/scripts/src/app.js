@@ -23,14 +23,14 @@ define(['vue', 'velocity'], function (Vue, Velocity) { 'use strict';
           this.scrollTo(document.documentElement);
         },
         pre: function () {
-          var prePost = this.getCurrentPost().previousElementSibling;
-          if (prePost)
-            this.scrollTo(prePost);
+          var currentPost = this.getCurrentPost();
+          var prePost = currentPost.previousElementSibling;
+          this.scrollTo(prePost || currentPost);
         },
         next: function () {
-          var nextPost = this.getCurrentPost().nextElementSibling;
-          if (nextPost)
-            this.scrollTo(nextPost);
+          var currentPost = this.getCurrentPost();
+          var nextPost = currentPost.nextElementSibling;
+          this.scrollTo(nextPost || currentPost);
         },
         preventDefault: function (e) {
           e.preventDefault();
