@@ -18,7 +18,22 @@ block main
       .info
         span.label= '当前昵称：' + user.name
 
-  include ./partials/post-list.jade
+  #post_list
+    each post in posts
+      .post.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes, data-comments-count=post.commentsCount)
+        article.article
+          .info
+            if post.writer
+              span.label.writer= '@' + post.writer
+            span.label.createtime= '发布于 ' + post.createTimeString
+          .body
+            h2
+              a.title(href='/p'+post._id, target='_self')
+                span.text= post.title
+            .content!= post.content
+        div.comment-area(v-component='comments')
+    .panel.card
+      a.btn-more(href='/l', target='_self') 更多内容
 
   include ./partials/comments.jade
 

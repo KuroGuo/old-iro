@@ -39,8 +39,7 @@ exports.list = function (req, res, next) {
     res.render('list', {
       posts: result.posts,
       pages: result.pages,
-      currentPage: page,
-      current: 'list'
+      currentPage: page
     });  
   });
 };

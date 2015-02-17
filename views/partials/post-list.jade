@@ -1,30 +1,12 @@
-#post_list(class=current==='list'?'card':'')
+#post_list.card
   each post in posts
-    if current === 'home'
-      .post.card(data-id=post._id, data-likes=post.likes, data-unlikes=post.unlikes, data-comments-count=post.commentsCount)
-        article.article
-          .info
-            if post.writer
-              span.label.writer= '@' + post.writer
-            span.label.createtime= '发布于 ' + post.createTimeString
-          .body
-            h2
-              a.title(href='/p'+post._id, target='_self')
-                span.text= post.title
-            .content!= post.content
-        div.comment-area(v-component='comments')
-    else if current === 'list'
-      .post
-        a.title(href='/p'+post._id, target='_self')
-          span.text= post.title
-        span.comments-count= post.commentsCount
-  if current === 'home' || current === 'list' && pages > 1
-    .panel(class=current==='home'?'card':'')
-      if current === 'home'
-        a.btn-more(href='/l', target='_self') 更多内容
-      else if current === 'list'
-        span.page-label= currentPage + '/' + pages
-        if currentPage > 1
-          a.btn-page.btn-pre-page(href='/l/' + (currentPage - 1), target='_self') 上一页
-        if currentPage < pages
-          a.btn-page.btn-next-page(href='/l/' + (currentPage + 1), target='_self') 下一页
+    .post
+      a.title(href='/p'+post._id, target='_self')
+        span.text= post.title
+      span.comments-count= post.commentsCount
+  .panel
+    span.page-label= currentPage + '/' + pages
+    if currentPage > 1
+      a.btn-page.btn-pre-page(href='/l/' + (currentPage - 1), target='_self') 上一页
+    if currentPage < pages
+      a.btn-page.btn-next-page(href='/l/' + (currentPage + 1), target='_self') 下一页

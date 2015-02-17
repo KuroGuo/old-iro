@@ -13,7 +13,6 @@ exports.index = function (req, res, next) {
 
     res.render('index', {
       posts: result.posts,
-      current: 'home',
       user: user
     });  
   });
