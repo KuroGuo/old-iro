@@ -196,55 +196,55 @@ $width: 50rem;
   height: 6rem;
 }
 
-#navigitor {
-  position: fixed;
-  right: 1rem;
-  bottom: 1rem;
-  z-index: 100;
+// #navigitor {
+//   position: fixed;
+//   right: 1rem;
+//   bottom: 1rem;
+//   z-index: 100;
 
-  > .inner {
-    @include transition(all .2s);
-    @include transform(translateZ(0));
-    &.show-enter, &.show-leave {
-      opacity: 0;
-    }
-  }
+//   > .inner {
+//     @include transition(all .2s);
+//     @include transform(translateZ(0));
+//     &.show-enter, &.show-leave {
+//       opacity: 0;
+//     }
+//   }
 
-  .button {
-    text-align: center;
-    width: 3rem;
-    height: 3rem;
-    line-height: 3rem;
-    margin-top: 1px;
-    background-color: #abc;
-    cursor: pointer;
-    @include transition(all .1s);
-    @include user-select(none);
+//   .button {
+//     text-align: center;
+//     width: 3rem;
+//     height: 3rem;
+//     line-height: 3rem;
+//     margin-top: 1px;
+//     background-color: #abc;
+//     cursor: pointer;
+//     @include transition(all .1s);
+//     @include user-select(none);
 
-    .no-touch & {
-      &:hover, &:active {
-        background-color: #333;
-      }
-      &:active, &.touch-down {
-        background-color: black;
-      }  
-    }
+//     .no-touch & {
+//       &:hover, &:active {
+//         background-color: #333;
+//       }
+//       &:active, &.touch-down {
+//         background-color: black;
+//       }  
+//     }
 
-    .text {
-      font-size: .8rem;
-      font-weight: bold;
-      color: white;
-    }
+//     .text {
+//       font-size: .8rem;
+//       font-weight: bold;
+//       color: white;
+//     }
 
-    .iconfont {
-      font-size: 1.2rem;
-    }
+//     .iconfont {
+//       font-size: 1.2rem;
+//     }
 
-    &:last-child {
-      border: none;
-    }
-  }
-}
+//     &:last-child {
+//       border: none;
+//     }
+//   }
+// }
 
 @font-face {
   font-family: 'Italiana';
