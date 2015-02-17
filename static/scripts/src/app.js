@@ -57,7 +57,7 @@ define(['vue', 'velocity'], function (Vue, Velocity) { 'use strict';
           for(i = 0; i < posts.length; i++) {
             var top = posts[i].getBoundingClientRect(posts[i]).top;
             if (top >= 0)
-              return posts[Math.max(i - 1, 1)];
+              return posts[i - 1] || posts[i];
           }
           return posts[posts.length - 1];
         },
