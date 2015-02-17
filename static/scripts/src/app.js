@@ -38,7 +38,7 @@ define(['vue', 'velocity'], function (Vue, Velocity) { 'use strict';
         scrollTo: function (element) {
           var view = this;
           Velocity(element, 'scroll', {
-            duration: 400,
+            duration: 1000,
             mobileHA: false,
             begin: function () {
               window.removeEventListener('scroll', view.windowOnScroll);
