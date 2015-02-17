@@ -53,11 +53,13 @@ define(['vue', 'velocity'], function (Vue, Velocity) { 'use strict';
         getCurrentPost: function () {
           var posts = document.querySelectorAll('#main .post');
           var i;
+          console.log(posts);
           for(i = 0; i < posts.length; i++) {
             var top = posts[i].getBoundingClientRect(posts[i]).top;
             if (top >= 0)
-              return posts[i];
+              return posts[Math.max(i - 1, 1)];
           }
+          return posts[posts.length - 1];
         },
         windowOnScroll: function () {
           var view = this;
