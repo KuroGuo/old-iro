@@ -6,7 +6,7 @@ append head
 block main
   if user
     #new_post_form_wrapper.card.editor
-      h2 发布你喜欢的
+      h2 分享你喜欢的
       form(action='/p/create', method='post', target='_self')
         input(type='text', name='title', placeholder='标题', class='textbox', required='required')
         .textarea.content(
