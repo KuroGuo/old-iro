@@ -25,7 +25,7 @@ html
     footer#footer
 
     #navigitor
-      .inner(v-show='navigitorShow', v-transition='show')
+      .inner(v-show='navigitorShow', v-transition='show', style='display: none;')
         .button.top(title='返回顶部', v-on='click: top')
           .text TOP
         if current === 'home'
