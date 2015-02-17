@@ -34,8 +34,18 @@
     }
   }
   .panel {
+    position: relative;
     background-color: white;
     text-align: center;
-    padding: 1rem;
+    height: 3rem;
+    .btn-more {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      height: 3rem;
+      line-height: 3rem;
+    }
   }
 }
