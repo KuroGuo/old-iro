@@ -3,8 +3,6 @@
 var post = require('../../services/post');
 
 exports.index = function (req, res, next) {
-  var user = req.session.user;
-
   post.find({
     mode: 'lastComment'
   }, function (err, result) {
@@ -12,8 +10,7 @@ exports.index = function (req, res, next) {
       return next(err);
 
     res.render('index', {
-      posts: result.posts,
-      user: user
+      posts: result.posts
     });  
   });
 };
@@ -23,19 +20,32 @@ exports.about = function (req, res) {
 };
 
 exports.loginView = function (req, res) {
+  var referer = req.headers.referer;
+
+  if (referer.indexOf(req.headers.host) >= 0)
+    req.session.loginReferer = referer;
+  else
+    req.session.loginReferer = '/';
+
   res.render('login');
 };
 
 exports.login = function (req, res) {
   var nickname = req.body.nickname;
-  var originalUrl = req.session.originalUrl;
+  var loginReferer = req.session.loginReferer;
 
   req.session.user = { name: nickname };
 
-  res.redirect(req.session.originalUrl);
+  res.redirect(req.session.loginReferer);
 };
 
 exports.logout = function (req, res) {
   req.session.user = null;
-  res.redirect('/login');
+
+  var referer = req.headers.referer;
+
+  if (referer.indexOf(req.headers.host) === -1)
+    referer = '/';
+
+  res.redirect(referer);
 };

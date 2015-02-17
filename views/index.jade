@@ -4,19 +4,20 @@ append head
   link(rel='stylesheet', href='/static/stylesheets/dist/index.css')
 
 block main
-  #new_post_form_wrapper.card.editor
-    h2 发布你喜欢的
-    form(action='/p/create', method='post', target='_self')
-      input(type='text', name='title', placeholder='标题', class='textbox', required='required')
-      .textarea.content(
-        contenteditable='true',
-        v-class='focused: focused',
-        v-on='input: sync',
-        spellcheck='false')
-      textarea(name='content', v-model='content', style="display: none;")
-      input(type='submit', value='发布', class='btn')
-      .info
-        span.label= '当前昵称：' + user.name
+  if user
+    #new_post_form_wrapper.card.editor
+      h2 发布你喜欢的
+      form(action='/p/create', method='post', target='_self')
+        input(type='text', name='title', placeholder='标题', class='textbox', required='required')
+        .textarea.content(
+          contenteditable='true',
+          v-class='focused: focused',
+          v-on='input: sync',
+          spellcheck='false')
+        textarea(name='content', v-model='content', style="display: none;")
+        input(type='submit', value='发布', class='btn')
+        .info
+          span.label= '当前昵称：' + user.name
 
   #post_list
     each post in posts

@@ -12,17 +12,18 @@ script(type='text/x-template', id="comments_wrapper_template")
       div(v-component='list', v-if='comments.list.length')
 
 script(type='text/x-template', id='form_comment_template')
-  .form_comment_wrapper.editor
-    form(action='/p/comment', method='post', target='_self', v-on='submit: send')
-      .textarea.comment-content.textarea-content(
-        contenteditable='true',
-        v-class='focused: focused',
-        v-on='keydown: onkeydown, input: sync',
-        spellcheck='false')
-      textarea(name='content', v-model='content', style='display: none;', required='required')
-      input(type='submit', value='POST', class='btn')
-      .info
-        span.label= '当前昵称：' + user.name
+  if user
+    .form_comment_wrapper.editor
+      form(action='/p/comment', method='post', target='_self', v-on='submit: send')
+        .textarea.comment-content.textarea-content(
+          contenteditable='true',
+          v-class='focused: focused',
+          v-on='keydown: onkeydown, input: sync',
+          spellcheck='false')
+        textarea(name='content', v-model='content', style='display: none;', required='required')
+        input(type='submit', value='POST', class='btn')
+        .info
+          span.label= '当前昵称：' + user.name
 
 script(type='text/x-template', id='comments_template')
   .comments

@@ -80,6 +80,16 @@ app.use(session({
   store: sessionStore
 }));
 
+app.use(function (req, res, next) {
+  var year = 1000 * 60 * 60 * 24 * 30 * 12;
+  req.session.cookie.expires = new Date(Date.now() + year);
+  req.session.cookie.maxAge = year;
+
+  app.locals.user = req.session.user;
+
+  next();
+});
+
 app.use(httpRouter);
 
 app.use('/static', function (req, res) {

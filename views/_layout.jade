@@ -14,7 +14,10 @@ html
           ul
             li: a(href='/l', target='_self') 列表
             li: a(href='/about', target='_self') 关于
-            li: a(href='/logout', target='_self') 退出
+            if user
+              li: a(href='/logout', target='_self') 退出
+            else
+              li: a(href='/login', target='_self') 登录
 
     #main
       block main
