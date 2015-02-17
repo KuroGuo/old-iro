@@ -204,6 +204,7 @@ $width: 50rem;
 
   > .inner {
     @include transition(all .2s);
+    @include transform(translateZ(0));
     &.show-enter, &.show-leave {
       opacity: 0;
     }
@@ -219,7 +220,6 @@ $width: 50rem;
     cursor: pointer;
     @include transition(all .1s);
     @include user-select(none);
-    @include transform(translateZ(0));
 
     .no-touch & {
       &:hover, &:active {
