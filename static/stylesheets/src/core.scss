@@ -11,7 +11,7 @@ body {
 
 .article {
   .info {
-    border-bottom: .1rem solid #eee;
+    border-bottom: 1px solid #eee;
     padding: .3rem;
     .label {
       font-size: .9rem;
@@ -54,7 +54,7 @@ body {
 
 .btn {
   cursor: pointer;
-  border: .1rem #59c solid;
+  border: 1px #59c solid;
   color: #59c;
   background-color: white;
   height: 2.3em;

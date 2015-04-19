@@ -41,7 +41,7 @@ body {
     height: 1.8em;
     @include box-sizing(border-box);    
     border: none;
-    border-bottom: .1rem solid #aaa;
+    border-bottom: 1px solid #aaa;
     text-align: inherit;
     outline: none;
     font: inherit;

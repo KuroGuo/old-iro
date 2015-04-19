@@ -1,1 +1,1 @@
-define(["vue","velocity"],function(){"use strict";!function(){document.documentElement.classList.add(void 0===document.ontouchstart?"no-touch":"touch")}()});
+define(["vue","velocity"],function(t,o){"use strict";!function(){document.documentElement.classList.add(void 0===document.ontouchstart?"no-touch":"touch")}()});
